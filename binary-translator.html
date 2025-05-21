@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>elias.science</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:ital,wght@0,100..1000;1,100..1000&family=Cascadia+Code:ital,wght@0,200..700;1,200..700&display=swap" rel="stylesheet">
+
+    <style>
+        body {	
+            font-family: 'Cascadia Code', sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: black;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+        }
+        h1 {
+            color: #487ceb;
+        }
+		h2 {
+			color: #4d83f8;
+			text-align: center;
+		}
+        .card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 28rem;
+            overflow: hidden;
+        }
+        .card-header {
+            padding: 1.5rem 1.5rem 0.75rem;
+            text-align: center;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+        .card-description {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+        .card-content {
+            padding: 1.5rem;
+        }
+        .input-group {
+            margin-bottom: 2.5rem;
+        }
+        .input-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+        }
+        .input {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            transition: border-color 0.15s ease-in-out;
+            font-family: monospace;
+			box-sizing: border-box;
+        }
+        .input:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .button-ghost {
+            background-color: transparent;
+            color: #6b7280;
+            border: none;
+        }
+        .button-ghost:hover {
+            background-color: #f3f4f6;
+        }
+        .button-outline {
+            background-color: white;
+            color: #6b7280;
+            border: 1px solid #d1d5db;
+            border-radius: 9999px;
+            padding: 0.5rem;
+        }
+        .button-outline:hover {
+            background-color: #f9fafb;
+        }
+        .alert {
+            border-radius: 0.375rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            background-color: #fee2e2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+        }
+        .alert-icon {
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+        .toast {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background-color: #1f2937;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            transform: translateY(150%);
+            transition: transform 0.3s ease;
+            z-index: 50;
+        }
+        .toast.show {
+            transform: translateY(0);
+        }
+        .info-section {
+            margin-top: 2rem;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.875rem;
+            max-width: 28rem;
+        }
+        .info-section p + p {
+            margin-top: 0.5rem;
+        }
+        .icon {
+            width: 1rem;
+            height: 1rem;
+        }
+        .hidden {
+            display: none;
+        }
+		.card-container {
+			display: flex;
+			justify-content: center;
+			margin-top: 3rem;
+		}
+    </style>
+</head>
+<body>
+    <header>
+		<h1>How do computers do math?</h1>
+    </header>
+
+    <main>
+		<p>Prior to discussing quantum computing, let's first cover how a classical computer (like the one you might be using right now!) performs calculations.</p>
+
+		<p>Before a computer can do math like we do, it must first convert <strong>decimal numbers</strong> to <strong>binary numbers</strong>. This is because a computer's hardware is made of <strong>transistors</strong>, which have two different states: on and off. The number '1' represents current flow within the computer, and the number '0' represents the absence of these signals. 
+		
+		<p>By utilizing different combinations of 1s and 0s, the computer can represent each number in its own way! Try it out below by utilizing the following:</p>
+
+		<div class="card-container">
+			<div class="card">
+				<div class="card-header">
+					<h1 class="card-title">Binary Translator</h1>
+					<p class="card-description">Convert between decimal and binary numbers</p>
+				</div>
+				<div class="card-content">
+					<div id="error-alert" class="alert hidden">
+						<svg class="icon alert-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<circle cx="12" cy="12" r="10"></circle>
+							<line x1="12" y1="8" x2="12" y2="12"></line>
+							<line x1="12" y1="16" x2="12.01" y2="16"></line>
+						</svg>
+						<span id="error-message"></span>
+					</div>
+		
+					<div class="input-group">
+						<div class="input-header">
+							<label for="decimal" class="label">Decimal Number</label>
+						</div>
+						<input id="decimal" type="text" class="input" placeholder="Enter a decimal number">
+					</div>
+		
+					<div class="input-group">
+						<div class="input-header">
+							<label for="binary" class="label">Binary Number</label>
+						</div>
+						<input id="binary" type="text" class="input" placeholder="Enter a binary number">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="next-button" class="hidden" style="text-align: center; margin-top: 2rem;">
+			<a href="logic-gate.html" id="next-button" style="
+				display: inline-block;
+				background-color: #6366f1;
+				color: white;
+				padding: 0.75rem 1.5rem;
+				border-radius: 0.375rem;
+				text-decoration: none;
+				font-weight: bold;
+				font-family: 'Cascadia Code', monospace;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+				transition: background-color 0.3s ease;
+			">
+				Next
+			</a>
+		</div>
+	
+		<script>
+			const decimalInput = document.getElementById('decimal');
+			const binaryInput = document.getElementById('binary');
+			const errorAlert = document.getElementById('error-alert');
+			const errorMessage = document.getElementById('error-message');
+			const toast = document.getElementById('toast');
+			const toastMessage = document.getElementById('toast-message');
+	
+			// Convert decimal to binary
+			function decimalToBinary() {
+				const decimalValue = decimalInput.value.trim();
+				
+				if (decimalValue === '') {
+					binaryInput.value = '';
+					hideError();
+					checkIfReadyToProceed();
+					return;
+				}
+	
+				// Check if input is a valid number
+				if (!/^\d+$/.test(decimalValue)) {
+					showError('Please enter a valid decimal number (only positive whole numbers allowed)');
+					return;
+				}
+	
+				try {
+					const decimalNum = parseInt(decimalValue, 10);
+					if (decimalNum < 0) {
+						showError('Please enter a positive number');
+						return;
+					}
+	
+					binaryInput.value = decimalNum.toString(2);
+					hideError();
+					checkIfReadyToProceed();
+				} catch (err) {
+					showError('Invalid decimal number');
+				}
+			}
+	
+			// Convert binary to decimal
+			function binaryToDecimal() {
+				const binaryValue = binaryInput.value.trim();
+				
+				if (binaryValue === '') {
+					decimalInput.value = '';
+					hideError();
+					return;
+				}
+	
+				// Check if input contains only 0s and 1s
+				if (!/^[01]+$/.test(binaryValue)) {
+					showError('Binary numbers can only contain 0s and 1s');
+					return;
+				}
+	
+				try {
+					const decimalNum = parseInt(binaryValue, 2);
+					decimalInput.value = decimalNum.toString();
+					hideError();
+					checkIfReadyToProceed();
+				} catch (err) {
+					showError('Invalid binary number');
+				}
+			}
+	
+			function showError(message) {
+				errorMessage.textContent = message;
+				errorAlert.classList.remove('hidden');
+			}
+	
+			function hideError() {
+				errorAlert.classList.add('hidden');
+			}
+			
+			function checkIfReadyToProceed() {
+				const decimalValue = decimalInput.value.trim();
+				const binaryValue = binaryInput.value.trim();
+
+				const isValidDecimal = /^\d+$/.test(decimalValue);
+				const isValidBinary = /^[01]+$/.test(binaryValue);
+
+				const show = (isValidDecimal && decimalValue !== '') || (isValidBinary && binaryValue !== '');
+
+				const nextButtonContainer = document.getElementById('next-button');
+				if (show) {
+					nextButtonContainer.classList.remove('hidden');
+				} else {
+					nextButtonContainer.classList.add('hidden');
+				}
+			}
+	
+			decimalInput.addEventListener('input', decimalToBinary);
+			binaryInput.addEventListener('input', binaryToDecimal);
+	
+			// Initialize
+			decimalToBinary();
+			binaryToDecimal();
+		</script>
+    </main>
+</body>
+</html>
