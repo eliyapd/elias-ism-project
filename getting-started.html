@@ -109,7 +109,7 @@
     }
     .link-btn {
       display: inline-block;
-      margin-bottom: 5rem;
+      margin-bottom: 1rem;
       padding: 0rem 0rem;
       background-color: #f9fafb;
       color: black;
@@ -313,7 +313,8 @@
       cat.classList.add(catState);
       
       measureBtn.disabled = true;
-      status.textContent = `Measurement result: The cat is ${catState === 'alive' ? 'upright!' : 'upside-down!'}`;
+
+      status.textContent = `Measurement result: The cat is ${catState === 'alive' ? 'upright! Press the Reset button to do it again!' : 'upside-down! Press the Reset button to do it again!'}`;
     }
     
     function handleReset() {
@@ -347,6 +348,5 @@
 
 </body>
 </html>
-
 
 
