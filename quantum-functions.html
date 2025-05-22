@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>elias.science</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:ital,wght@0,100..1000;1,100..1000&family=Cascadia+Code:ital,wght@0,200..700;1,200..700&display=swap" rel="stylesheet">
+
+<style>
+	body {
+		font-family: 'Cascadia Code', sans-serif;
+		line-height: 1.6;
+		color: #ffffff;
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 20px;
+		background-color: black;
+	}
+	h1 {
+		color: #487ceb;
+	}
+	header {
+		text-align: center;
+		margin-bottom: 40px;
+		border-bottom: 2px solid #616161;
+		padding-bottom: 20px;
+	}
+	:root {
+            --primary: #6d28d9;
+            --primary-light: #8b5cf6;
+            --secondary: #10b981;
+            --dark: #111827;
+            --light: #f9fafb;
+            --gray: #4b5563;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        h1, h2, h3 {
+            color: var(--light);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 2rem;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.5rem;
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .section {
+            background-color: rgba(30, 41, 59, 0.8);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+            margin: 2rem 0;
+        }
+        
+        .flex-item {
+            flex: 1 1 300px;
+        }
+        
+        .demo-container {
+            background-color: rgba(17, 24, 39, 0.8);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid var(--primary-light);
+        }
+        
+        canvas {
+            background-color: #1e293b;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+            justify-content: center;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--primary-light);
+        }
+        
+        button:disabled {
+            background-color: var(--gray);
+            cursor: not-allowed;
+        }
+        
+        .gate-btn {
+            background-color: var(--secondary);
+        }
+        
+        .gate-btn:hover {
+            background-color: #34d399;
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .slider-container label {
+            min-width: 100px;
+        }
+        
+        input[type="range"] {
+            flex: 1;
+        }
+        
+        .info-box {
+            background-color: rgba(79, 70, 229, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .step {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .bloch-sphere {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .ion-trap {
+            width: 100%;
+            height: 200px;
+            margin: 1rem 0;
+            position: relative;
+        }
+        
+        .laser-animation {
+            width: 100%;
+            height: 250px;
+            margin: 1rem 0;
+            position: relative;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #1e293b;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: var(--primary);
+            border-radius: 4px;
+            width: 0;
+            transition: width 0.3s;
+        }
+        
+        .highlight {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        .math {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            text-align: center;
+            margin: 1rem 0;
+            font-size: 1.2rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        th {
+            background-color: rgba(79, 70, 229, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .flex-item {
+                flex: 1 1 100%;
+            }
+        }
+
+		.next-page {
+		display: flex;
+		justify-content: center;
+		padding: 1rem 1rem;
+		background-color: #f9fafb;
+		color: black;
+		text-decoration: none;
+		border-radius: 0.375rem;
+		font-weight: 500;
+		transition: background-color 0.2s;
+		}
+
+		.button-container {
+		display: flex;
+		justify-content: center;
+		margin-top: 3rem;
+		margin-bottom: 5rem;
+		}
+</style>
+
+<body>
+	<header>
+		<h1>How do quantum computers work?</h1>
+	</header>
+
+	<main>
+		<h3 style="display: flex; justify-content: center;">IonQ's Approach: Trapped Ions</h3>
+		<p>The quantum computing research company IonQ creates qubits using <strong>individual atoms</strong>, specifically <strong>ions</strong> (atoms with electrons removed). These ions are suspended or "trapped" using electromagnetic fields, which are then manipulated using precisely controlled <strong>laser pulses</strong>.</p>
+	
+		<div class="section">
+			<h2>IonQ's Trapped Ion Technology</h2>
+			<p>IonQ's quantum computers use trapped ions as qubits. Because ions do not have electrons, they have a positive charge. This means that we may "trap" the electrons in place using a negative electromagnetic field!</p>
+			
+			<div class="demo-container">
+				<h3>Ion Trap Visualization</h3>
+				<canvas id="ionTrap" width="600" height="200"></canvas>
+				<div class="controls">
+					<button id="addIonBtn">Add Ion</button>
+					<button id="removeIonBtn">Remove Ion</button>
+					<button id="resetIonTrapBtn">Reset</button>
+				</div>
+				<div class="info-box">
+					<p>Ions in trap: <span id="ionCount">0</span></p>
+					<p>Each ion represents a qubit in IonQ's quantum computer. The gray bars display the boundaries of the electromagnetic field that traps the ions in place!</p>
+				</div>
+			</div>
+			
+			<h3>How Lasers Control Qubits</h3>
+			<p>IonQ uses precisely controlled laser pulses to:</p>
+			<ol>
+				<li><strong>Initialize qubits</strong> - Set ions to a known quantum state</li>
+				<li><strong>Perform quantum gates</strong> - Manipulate qubits to perform calculations</li>
+				<li><strong>Create entanglement</strong> - Link qubits together for complex operations</li>
+				<li><strong>Read out results</strong> - Measure the final state of qubits</li>
+			</ol>
+	
+			<div class="section">
+				<p>Similar to the way a classical computer works, quantum computers use circuits called <strong>quantum gates</strong>, which function to manipulate the state of qubits in order to create algorithms (instructions for the quantum computer to follow).</p>
+				
+				<p>Some of the most common quantum gates and their functions can be seen below:</p>
+				<div class="flex-container">
+					<h3>Common Quantum Gates</h3>
+					<table>
+						<tr>
+							<th>Gate</th>
+							<th>Description</th>
+							<th>Classical Analog</th>
+						</tr>
+						<tr>
+							<td>X Gate</td>
+							<td>Flips the state of a qubit (|0⟩ ↔ |1⟩)</td>
+							<td>NOT gate</td>
+						</tr>
+						<tr>
+							<td>H Gate</td>
+							<td>Creates superposition</td>
+							<td>No classical analog</td>
+						</tr>
+						<tr>
+							<td>CNOT Gate</td>
+							<td>Entangles two qubits</td>
+							<td>XOR operation</td>
+						</tr>
+						<tr>
+							<td>Z Gate</td>
+							<td>Phase flip</td>
+							<td>No classical analog</td>
+						</tr>
+					</table>
+				</div>
+				</div>
+				<table>
+			</div>
+			</div>
+	
+			<div class="container">
+				<h1>Laser-Ion Interaction</h1>
+				<p>Apply quantum gates to a qubit and observe how measurement works!</p>
+				
+				<div class="demo-container">
+					<h3>Laser-Ion Interaction</h3>
+					<p>Discover how lasers are utilized within quantum computers using the following demonstration! Initialize the qubit to set an ion to a known state (|0⟩ or |1⟩), use the X Gate or H gate to change the state of the qubit, and press the "Measure" button to observe which state its superposition has collapsed to!</p>
+					<canvas id="laserDemo" width="600" height="250"></canvas>
+					<div class="controls">
+						<button id="initializeBtn">Initialize</button>
+						<button id="xGateBtn" class="gate-btn">X Gate</button>
+						<button id="hGateBtn" class="gate-btn">H Gate</button>
+						<button id="measureBtn" class="measure-btn">Measure</button>
+					</div>
+					<div class="info-box">
+						<p>Current operation: <span id="currentOperation">None</span></p>
+						<p>Internal qubit state: <span id="internalState">(Hidden until measured)</span></p>
+					</div>
+					<div class="measurement-result" id="measurementResult"></div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<div class="button-container">
+		<a href="circuit-building.html" class="next-page">NEXT</a>
+	</div>
+
+<script>
+	// Ion Trap Visualization
+	const ionTrapCanvas = document.getElementById('ionTrap');
+	const ionTrapCtx = ionTrapCanvas.getContext('2d');
+	const addIonBtn = document.getElementById('addIonBtn');
+	const removeIonBtn = document.getElementById('removeIonBtn');
+	const resetIonTrapBtn = document.getElementById('resetIonTrapBtn');
+	const ionCountDisplay = document.getElementById('ionCount');
+
+	let ions = [];
+	const maxIons = 10;
+
+	function drawIonTrap() {
+		const width = ionTrapCanvas.width;
+		const height = ionTrapCanvas.height;
+		
+		// Clear canvas
+		ionTrapCtx.clearRect(0, 0, width, height);
+		
+		// Draw trap electrodes
+		ionTrapCtx.fillStyle = '#4b5563';
+		ionTrapCtx.fillRect(50, 50, width - 100, 20);
+		ionTrapCtx.fillRect(50, height - 70, width - 100, 20);
+		
+		// Draw trap potential (curved lines)
+		ionTrapCtx.beginPath();
+		ionTrapCtx.moveTo(50, height / 2);
+		ionTrapCtx.quadraticCurveTo(width / 2, 100, width - 50, height / 2);
+		ionTrapCtx.strokeStyle = '#8b5cf6';
+		ionTrapCtx.lineWidth = 1;
+		ionTrapCtx.stroke();
+		
+		ionTrapCtx.beginPath();
+		ionTrapCtx.moveTo(50, height / 2);
+		ionTrapCtx.quadraticCurveTo(width / 2, height - 100, width - 50, height / 2);
+		ionTrapCtx.stroke();
+		
+		// Draw ions
+		ions.forEach((ion, index) => {
+			// Calculate position
+			const x = 100 + (width - 200) * (index / (maxIons - 1));
+			const y = height / 2;
+			
+			// Draw ion
+			ionTrapCtx.beginPath();
+			ionTrapCtx.arc(x, y, 10, 0, 2 * Math.PI);
+			ionTrapCtx.fillStyle = '#10b981';
+			ionTrapCtx.fill();
+			
+			// Draw label
+			ionTrapCtx.fillStyle = '#f9fafb';
+			ionTrapCtx.font = '12px Arial';
+			ionTrapCtx.fillText(`Q${index}`, x - 8, y + 25);
+		});
+		
+		// Update ion count
+		ionCountDisplay.textContent = ions.length;
+	}
+
+	function addIon() {
+		if (ions.length < maxIons) {
+			ions.push({ state: '0' });
+			drawIonTrap();
+		}
+	}
+
+	function removeIon() {
+		if (ions.length > 0) {
+			ions.pop();
+			drawIonTrap();
+		}
+	}
+
+	function resetIonTrap() {
+		ions = [];
+		drawIonTrap();
+	}
+
+	addIonBtn.addEventListener('click', addIon);
+	removeIonBtn.addEventListener('click', removeIon);
+	resetIonTrapBtn.addEventListener('click', resetIonTrap);
+
+	// Laser-Ion Interaction
+	const laserCanvas = document.getElementById('laserDemo');
+	const laserCtx = laserCanvas.getContext('2d');
+	const initializeBtn = document.getElementById('initializeBtn');
+	const xGateBtn = document.getElementById('xGateBtn');
+	const hGateBtn = document.getElementById('hGateBtn');
+	const measureBtn = document.getElementById('measureBtn');
+	const currentOperationDisplay = document.getElementById('currentOperation');
+	const internalStateDisplay = document.getElementById('internalState');
+	const measurementResultDisplay = document.getElementById('measurementResult');
+
+	// State variables
+	let internalQubitState = '0';
+	let measuredQubitState = null;
+	let laserAngle = 0;
+	let laserActive = false;
+	let laserColor = '#6d28d9';
+	let laserAnimationId = null;
+	let hasMeasured = false;
+	let isOperationInProgress = false;
+
+	function drawLaserDemo() {
+		const width = laserCanvas.width;
+		const height = laserCanvas.height;
+		
+		// Clear canvas
+		laserCtx.clearRect(0, 0, width, height);
+		
+		// Draw ion trap (simplified)
+		laserCtx.fillStyle = '#4b5563';
+		laserCtx.fillRect(100, height - 60, width - 200, 10);
+		
+		// Draw ion
+		const ionX = width / 2;
+		const ionY = height - 80;
+		
+		laserCtx.beginPath();
+		laserCtx.arc(ionX, ionY, 15, 0, 2 * Math.PI);
+		
+		// Ion color based on state - only show measured state if measured
+		if (hasMeasured) {
+			if (measuredQubitState === '0') {
+				laserCtx.fillStyle = '#10b981'; // Green for |0⟩
+			} else if (measuredQubitState === '1') {
+				laserCtx.fillStyle = '#ef4444'; // Red for |1⟩
+			}
+		} else {
+			// Before measurement, show a neutral color
+			laserCtx.fillStyle = '#8b5cf6'; // Purple for unknown state
+		}
+		
+		laserCtx.fill();
+		
+		// Draw state label - only show if measured
+		if (hasMeasured) {
+			laserCtx.fillStyle = '#f9fafb';
+			laserCtx.font = '14px Arial';
+			laserCtx.fillText(`|${measuredQubitState}⟩`, ionX - 8, ionY + 5);
+		} else {
+			laserCtx.fillStyle = '#f9fafb';
+			laserCtx.font = '14px Arial';
+			laserCtx.fillText('?', ionX - 4, ionY + 5);
+		}
+		
+		// Draw laser if active
+		if (laserActive) {
+			laserCtx.beginPath();
+			laserCtx.moveTo(0, 50);
+			laserCtx.lineTo(ionX, ionY);
+			laserCtx.strokeStyle = laserColor;
+			laserCtx.lineWidth = 2;
+			laserCtx.stroke();
+			
+			// Draw laser pulses
+			for (let i = 0; i < 5; i++) {
+				const pulsePos = (laserAngle + i * 30) % 100;
+				const x = ionX - (pulsePos / 100) * ionX;
+				const y = ionY - (pulsePos / 100) * (ionY - 50);
+				
+				laserCtx.beginPath();
+				laserCtx.arc(x, y, 3, 0, 2 * Math.PI);
+				laserCtx.fillStyle = laserColor;
+				laserCtx.fill();
+			}
+		}
+		
+		// Draw laser source
+		laserCtx.fillStyle = '#4b5563';
+		laserCtx.fillRect(0, 30, 30, 40);
+	}
+
+	function animateLaser() {
+		laserAngle = (laserAngle + 1) % 100;
+		drawLaserDemo();
+		laserAnimationId = requestAnimationFrame(animateLaser);
+	}
+
+	function startLaserOperation(operation, color, duration) {
+		// Prevent starting a new operation if one is already in progress
+		if (isOperationInProgress) return;
+		
+		isOperationInProgress = true;
+		
+		// Stop any existing animation
+		if (laserAnimationId) {
+			cancelAnimationFrame(laserAnimationId);
+			laserAnimationId = null;
+		}
+		
+		// Reset measurement display when starting a new operation (except for measuring)
+		if (operation !== 'Measuring') {
+			hasMeasured = false;
+			measuredQubitState = null;
+			measurementResultDisplay.textContent = '';
+		}
+		
+		// Set operation parameters
+		currentOperationDisplay.textContent = operation;
+		laserColor = color;
+		laserActive = true;
+		
+		// Start animation
+		animateLaser();
+		
+		// Stop after duration
+		setTimeout(() => {
+			laserActive = false;
+			if (laserAnimationId) {
+				cancelAnimationFrame(laserAnimationId);
+				laserAnimationId = null;
+			}
+			currentOperationDisplay.textContent = 'None';
+			drawLaserDemo();
+			isOperationInProgress = false;
+		}, duration);
+	}
+
+	function initialize() {
+		internalQubitState = '0';
+		hasMeasured = false;
+		measuredQubitState = null;
+		internalStateDisplay.textContent = '(Hidden until measured)';
+		measurementResultDisplay.textContent = '';
+		
+		startLaserOperation('Initializing', '#10b981', 1500);
+		
+		// Update internal state after operation completes
+		setTimeout(() => {
+			updateInternalStateDisplay();
+		}, 1500);
+	}
+
+	function applyXGate() {
+		startLaserOperation('Applying X Gate', '#ef4444', 1500);
+		
+		// Update internal state after operation completes
+		setTimeout(() => {
+			// Update internal state based on X gate logic
+			if (internalQubitState === '0') internalQubitState = '1';
+			else if (internalQubitState === '1') internalQubitState = '0';
+			else if (internalQubitState === '+') internalQubitState = '-';
+			else if (internalQubitState === '-') internalQubitState = '+';
+			
+			// Update internal state display (still hidden from user)
+			updateInternalStateDisplay();
+		}, 1500);
+	}
+
+	function applyHGate() {
+		startLaserOperation('Applying H Gate', '#8b5cf6', 1500);
+		
+		// Update internal state after operation completes
+		setTimeout(() => {
+			// Update internal state based on H gate logic
+			if (internalQubitState === '0') internalQubitState = '+';
+			else if (internalQubitState === '1') internalQubitState = '-';
+			else if (internalQubitState === '+') internalQubitState = '0';
+			else if (internalQubitState === '-') internalQubitState = '1';
+			
+			// Update internal state display (still hidden from user)
+			updateInternalStateDisplay();
+		}, 1500);
+	}
+
+	function measure() {
+		startLaserOperation('Measuring', '#f59e0b', 1500);
+		
+		// Perform measurement after operation completes
+		setTimeout(() => {
+			// Perform the measurement
+			performMeasurement();
+			
+			// Show the measurement result
+			hasMeasured = true;
+			
+			// Display a message about the measurement
+			if (internalQubitState === '+' || internalQubitState === '-') {
+				measurementResultDisplay.textContent = `Measured |${measuredQubitState}⟩ (50% probability from superposition state |${internalQubitState}⟩)`;
+			} else {
+				measurementResultDisplay.textContent = `Measured |${measuredQubitState}⟩ (100% probability from basis state |${internalQubitState}⟩)`;
+			}
+			
+			// Update the display
+			drawLaserDemo();
+		}, 1500);
+	}
+
+	function performMeasurement() {
+		// This is where the quantum randomness happens
+		if (internalQubitState === '+' || internalQubitState === '-') {
+			// For superposition states, there's a 50/50 chance
+			measuredQubitState = Math.random() < 0.5 ? '0' : '1';
+		} else {
+			// For basis states |0⟩ and |1⟩, measurement is deterministic
+			measuredQubitState = internalQubitState;
+		}
+		
+		// After measurement, the internal state collapses to the measured state
+		internalQubitState = measuredQubitState;
+		updateInternalStateDisplay();
+	}
+
+	function updateInternalStateDisplay() {
+		// Update the internal state display (for debugging purposes)
+		if (internalQubitState === '0') {
+			internalStateDisplay.textContent = '|0⟩';
+		} else if (internalQubitState === '1') {
+			internalStateDisplay.textContent = '|1⟩';
+		} else if (internalQubitState === '+') {
+			internalStateDisplay.textContent = '|+⟩ = (|0⟩ + |1⟩)/√2';
+		} else if (internalQubitState === '-') {
+			internalStateDisplay.textContent = '|-⟩ = (|0⟩ - |1⟩)/√2';
+		}
+	}
+
+	// Add event listeners
+	initializeBtn.addEventListener('click', initialize);
+	xGateBtn.addEventListener('click', applyXGate);
+	hGateBtn.addEventListener('click', applyHGate);
+	measureBtn.addEventListener('click', measure);
+
+	// Initialize the visualization
+	window.addEventListener('load', function() {
+		initialize(); // Start with initialized state
+	});
+
+	// Quantum Circuit
+	const circuitCanvas = document.getElementById('quantumCircuit');
+	const circuitCtx = circuitCanvas.getContext('2d');
+	const addQubitBtn = document.getElementById('addQubitBtn');
+	const resetCircuitBtn = document.getElementById('resetCircuitBtn');
+	const runCircuitBtn = document.getElementById('runCircuitBtn');
+	const addXGateBtn = document.getElementById('addXGateBtn');
+	const addHGateBtn = document.getElementById('addHGateBtn');
+	const addCNOTBtn = document.getElementById('addCNOTBtn');
+	const addMeasureBtn = document.getElementById('addMeasureBtn');
+	const circuitStatusDisplay = document.getElementById('circuitStatus');
+	const circuitResultsDisplay = document.getElementById('circuitResults');
+
+	let circuit = {
+		qubits: [],
+		gates: [],
+		selectedQubit: -1,
+		selectedGateType: '',
+		results: []
+	};
+
+	function drawQuantumCircuit() {
+		const width = circuitCanvas.width;
+		const height = circuitCanvas.height;
+		const margin = 50;
+		const qubitSpacing = 50;
+		const gateSpacing = 60;
+		
+		// Clear canvas
+		circuitCtx.clearRect(0, 0, width, height);
+		
+		// Draw circuit background
+		circuitCtx.fillStyle = '#1e293b';
+		circuitCtx.fillRect(0, 0, width, height);
+		
+		// Draw qubits and wires
+		circuit.qubits.forEach((qubit, index) => {
+			const y = margin + index * qubitSpacing;
+			
+			// Draw qubit label
+			circuitCtx.fillStyle = '#f9fafb';
+			circuitCtx.font = '14px Arial';
+			circuitCtx.fillText(`q${index}: |0⟩`, 10, y + 5);
+			
+			// Draw wire
+			circuitCtx.beginPath();
+			circuitCtx.moveTo(margin, y);
+			circuitCtx.lineTo(width - margin, y);
+			circuitCtx.strokeStyle = '#4b5563';
+			circuitCtx.lineWidth = 1;
+			circuitCtx.stroke();
+			
+			// Highlight selected qubit
+			if (index === circuit.selectedQubit) {
+				circuitCtx.strokeStyle = '#10b981';
+				circuitCtx.lineWidth = 2;
+				circuitCtx.strokeRect(5, y - 15, 40, 25);
+			}
+		});
+		
+		// Draw gates
+		circuit.gates.forEach(gate => {
+			const x = margin + gate.position * gateSpacing;
+			const y = margin + gate.qubit * qubitSpacing;
+			
+			// Draw gate box
+			circuitCtx.fillStyle = getGateColor(gate.type);
+			circuitCtx.fillRect(x - 15, y - 15, 30, 30);
+			
+			// Draw gate label
+			circuitCtx.fillStyle = '#f9fafb';
+			circuitCtx.font = '14px Arial';
+			circuitCtx.fillText(gate.type, x - 8, y + 5);
+			
+			// Draw CNOT control line if applicable
+			if (gate.type === 'CNOT' && gate.control !== undefined) {
+				const controlY = margin + gate.control * qubitSpacing;
+				
+				circuitCtx.beginPath();
+				circuitCtx.moveTo(x, controlY);
+				circuitCtx.lineTo(x, y);
+				circuitCtx.strokeStyle = '#f59e0b';
+				circuitCtx.lineWidth = 2;
+				circuitCtx.stroke();
+				
+				// Draw control point
+				circuitCtx.beginPath();
+				circuitCtx.arc(x, controlY, 5, 0, 2 * Math.PI);
+				circuitCtx.fillStyle = '#f59e0b';
+				circuitCtx.fill();
+			}
+		});
+		
+		// Draw measurement results
+		if (circuit.results.length > 0) {
+			circuit.results.forEach((result, index) => {
+				const y = margin + index * qubitSpacing;
+				
+				circuitCtx.fillStyle = '#f9fafb';
+				circuitCtx.font = '14px Arial';
+				circuitCtx.fillText(`→ |${result}⟩`, width - margin + 10, y + 5);
+			});
+		}
+	}
+
+	function getGateColor(gateType) {
+		switch (gateType) {
+			case 'X': return '#ef4444';
+			case 'H': return '#8b5cf6';
+			case 'CNOT': return '#f59e0b';
+			case 'M': return '#10b981';
+			default: return '#4b5563';
+		}
+	}
+
+	function addQubit() {
+		if (circuit.qubits.length < 5) {
+			circuit.qubits.push({ state: '0' });
+			drawQuantumCircuit();
+		}
+	}
+
+	function resetCircuit() {
+		circuit = {
+			qubits: [],
+			gates: [],
+			selectedQubit: -1,
+			selectedGateType: '',
+			results: []
+		};
+		circuitStatusDisplay.textContent = 'Ready';
+		circuitResultsDisplay.textContent = 'None';
+		drawQuantumCircuit();
+	}
+
+	function selectQubit(event) {
+		const rect = circuitCanvas.getBoundingClientRect();
+		const x = event.clientX - rect.left;
+		const y = event.clientY - rect.top;
+		
+		const margin = 50;
+		const qubitSpacing = 50;
+		
+		// Check if click is in qubit label area
+		if (x < margin) {
+			const qubitIndex = Math.floor((y - margin / 2) / qubitSpacing);
+			if (qubitIndex >= 0 && qubitIndex < circuit.qubits.length) {
+				circuit.selectedQubit = qubitIndex;
+				drawQuantumCircuit();
+			}
+		}
+	}
+
+	function addGate(gateType) {
+		if (circuit.selectedQubit === -1) {
+			alert('Please select a qubit first');
+			return;
+		}
+		
+		// Find the next available position
+		let maxPosition = 0;
+		circuit.gates.forEach(gate => {
+			if (gate.qubit === circuit.selectedQubit && gate.position > maxPosition) {
+				maxPosition = gate.position;
+			}
+		});
+		
+		// Add the gate
+		if (gateType === 'CNOT' && circuit.qubits.length < 2) {
+			alert('CNOT gate requires at least 2 qubits');
+			return;
+		}
+		
+		const newGate = {
+			type: gateType,
+			qubit: circuit.selectedQubit,
+			position: maxPosition + 1
+		};
+		
+		// For CNOT, add control qubit
+		if (gateType === 'CNOT') {
+			// Find a different qubit to use as control
+			const controlQubit = circuit.selectedQubit === 0 ? 1 : 0;
+			newGate.control = controlQubit;
+		}
+		
+		circuit.gates.push(newGate);
+		drawQuantumCircuit();
+	}
+
+	function runCircuit() {
+		// Simple simulation of quantum circuit
+		// Initialize all qubits to |0⟩
+		const qubitStates = circuit.qubits.map(() => '0');
+		
+		// Sort gates by position to execute in order
+		const sortedGates = [...circuit.gates].sort((a, b) => a.position - b.position);
+		
+		// Execute gates
+		sortedGates.forEach(gate => {
+			if (gate.type === 'X') {
+				// X gate flips the state
+				qubitStates[gate.qubit] = qubitStates[gate.qubit] === '0' ? '1' : '0';
+			} else if (gate.type === 'H') {
+				// H gate creates superposition
+				qubitStates[gate.qubit] = qubitStates[gate.qubit] === '0' ? '+' : '-';
+			} else if (gate.type === 'CNOT') {
+				// CNOT flips target if control is |1⟩
+				if (qubitStates[gate.control] === '1') {
+					qubitStates[gate.qubit] = qubitStates[gate.qubit] === '0' ? '1' : '0';
+				}
+			} else if (gate.type === 'M') {
+				// Measurement collapses superposition
+				if (qubitStates[gate.qubit] === '+' || qubitStates[gate.qubit] === '-') {
+					qubitStates[gate.qubit] = Math.random() < 0.5 ? '0' : '1';
+				}
+			}
+		});
+		
+		// Update results
+		circuit.results = [...qubitStates];
+		circuitStatusDisplay.textContent = 'Executed';
+		circuitResultsDisplay.textContent = `|${qubitStates.join('')}⟩`;
+		drawQuantumCircuit();
+	}
+
+	circuitCanvas.addEventListener('click', selectQubit);
+	addQubitBtn.addEventListener('click', addQubit);
+	resetCircuitBtn.addEventListener('click', resetCircuit);
+	runCircuitBtn.addEventListener('click', runCircuit);
+	addXGateBtn.addEventListener('click', () => addGate('X'));
+	addHGateBtn.addEventListener('click', () => addGate('H'));
+	addCNOTBtn.addEventListener('click', () => addGate('CNOT'));
+	addMeasureBtn.addEventListener('click', () => addGate('M'));
+
+	// Deutsch's Algorithm
+	const deutschStep1Canvas = document.getElementById('deutschStep1');
+	const deutschStep2Canvas = document.getElementById('deutschStep2');
+	const deutschStep3Canvas = document.getElementById('deutschStep3');
+	const deutschStep4Canvas = document.getElementById('deutschStep4');
+	const deutschStep5Canvas = document.getElementById('deutschStep5');
+	const nextStep1Btn = document.getElementById('nextStep1');
+	const nextStep2Btn = document.getElementById('nextStep2');
+	const nextStep3Btn = document.getElementById('nextStep3');
+	const nextStep4Btn = document.getElementById('nextStep4');
+	const constantBtn = document.getElementById('constantBtn');
+	const balancedBtn = document.getElementById('balancedBtn');
+	const resetDeutschBtn = document.getElementById('resetDeutsch');
+	const deutschResultDisplay = document.getElementById('deutschResult');
+	const deutschInterpretationDisplay = document.getElementById('deutschInterpretation');
+
+	let deutschState = {
+		qubits: ['0', '1'],
+		step: 1,
+		oracleType: ''
+	};
+
+	function drawDeutschStep(canvas, step) {
+		const ctx = canvas.getContext('2d');
+		const width = canvas.width;
+		const height = canvas.height;
+		const margin = 50;
+		const qubitSpacing = 50;
+		
+		// Clear canvas
+		ctx.clearRect(0, 0, width, height);
+		
+		// Draw circuit background
+		ctx.fillStyle = '#1e293b';
+		ctx.fillRect(0, 0, width, height);
+		
+		// Draw qubits and wires
+		deutschState.qubits.forEach((state, index) => {
+			const y = margin + index * qubitSpacing;
+			
+			// Draw qubit label
+			ctx.fillStyle = '#f9fafb';
+			ctx.font = '14px Arial';
+			ctx.fillText(`q${index}: |${state}⟩`, 10, y + 5);
+			
+			// Draw wire
+			ctx.beginPath();
+			ctx.moveTo(margin, y);
+			ctx.lineTo(width - margin, y);
+			ctx.strokeStyle = '#4b5563';
+			ctx.lineWidth = 1;
+			ctx.stroke();
+		});
+		
+		// Draw gates based on step
+		if (step >= 2) {
+			// Draw H gates
+			deutschState.qubits.forEach((_, index) => {
+				const x = margin + 60;
+				const y = margin + index * qubitSpacing;
+				
+				ctx.fillStyle = '#8b5cf6';
+				ctx.fillRect(x - 15, y - 15, 30, 30);
+				
+				ctx.fillStyle = '#f9fafb';
+				ctx.font = '14px Arial';
+				ctx.fillText('H', x - 8, y + 5);
+			});
+		}
+		
+		if (step >= 3 && deutschState.oracleType) {
+			// Draw oracle
+			const x = margin + 130;
+			const y1 = margin;
+			const y2 = margin + qubitSpacing;
+			
+			ctx.fillStyle = '#f59e0b';
+			ctx.fillRect(x - 25, y1 - 15, 50, 30 + qubitSpacing);
+			
+			ctx.fillStyle = '#f9fafb';
+			ctx.font = '14px Arial';
+			ctx.fillText('Oracle', x - 20, (y1 + y2) / 2);
+			
+			// Draw oracle type
+			ctx.fillStyle = '#f9fafb';
+			ctx.font = '12px Arial';
+			ctx.fillText(deutschState.oracleType, x - 20, (y1 + y2) / 2 + 15);
+		}
+		
+		if (step >= 4) {
+			// Draw final H gate on first qubit
+			const x = margin + 200;
+			const y = margin;
+			
+			ctx.fillStyle = '#8b5cf6';
+			ctx.fillRect(x - 15, y - 15, 30, 30);
+			
+			ctx.fillStyle = '#f9fafb';
+			ctx.font = '14px Arial';
+			ctx.fillText('H', x - 8, y + 5);
+		}
+		
+		if (step >= 5) {
+			// Draw measurement on first qubit
+			const x = margin + 260;
+			const y = margin;
+			
+			ctx.fillStyle = '#10b981';
+			ctx.fillRect(x - 15, y - 15, 30, 30);
+			
+			ctx.fillStyle = '#f9fafb';
+			ctx.font = '14px Arial';
+			ctx.fillText('M', x - 8, y + 5);
+			
+			// Draw result
+			ctx.fillStyle = '#f9fafb';
+			ctx.font = '14px Arial';
+			ctx.fillText(`→ |${deutschState.qubits[0]}⟩`, width - margin + 10, y + 5);
+		}
+	}
+
+	function nextStep(step) {
+		// Hide current step
+		document.getElementById(`step${step}`).classList.remove('active');
+		
+		// Show next step
+		document.getElementById(`step${step + 1}`).classList.add('active');
+		
+		// Update state
+		deutschState.step = step + 1;
+		
+		// Update qubits based on step
+		if (step === 1) {
+			// After H gates
+			deutschState.qubits = ['+', '-'];
+			drawDeutschStep(deutschStep2Canvas, 2);
+		} else if (step === 2) {
+			// After oracle (will be updated when oracle type is selected)
+			drawDeutschStep(deutschStep3Canvas, 3);
+		} else if (step === 3) {
+			// After final H gate
+			if (deutschState.oracleType === 'Constant') {
+				deutschState.qubits = ['0', '-'];
+			} else if (deutschState.oracleType === 'Balanced') {
+				deutschState.qubits = ['1', '-'];
+			}
+			drawDeutschStep(deutschStep4Canvas, 4);
+		} else if (step === 4) {
+			// After measurement
+			drawDeutschStep(deutschStep5Canvas, 5);
+			
+			// Update result display
+			deutschResultDisplay.textContent = `|${deutschState.qubits[0]}⟩`;
+			
+			if (deutschState.qubits[0] === '0') {
+				deutschInterpretationDisplay.textContent = 'Function is constant';
+			} else {
+				deutschInterpretationDisplay.textContent = 'Function is balanced';
+			}
+		}
+	}
+
+	function selectOracle(type) {
+		deutschState.oracleType = type;
+		
+		// Enable next button
+		nextStep3Btn.disabled = false;
+		
+		// Update canvas
+		drawDeutschStep(deutschStep3Canvas, 3);
+	}
+
+	function resetDeutsch() {
+		// Reset state
+		deutschState = {
+			qubits: ['0', '1'],
+			step: 1,
+			oracleType: ''
+		};
+		
+		// Hide all steps
+		document.querySelectorAll('.step').forEach(step => {
+			step.classList.remove('active');
+		});
+		
+		// Show first step
+		document.getElementById('step1').classList.add('active');
+		
+		// Reset displays
+		deutschResultDisplay.textContent = 'Not measured yet';
+		deutschInterpretationDisplay.textContent = '';
+		
+		// Draw first step
+		drawDeutschStep(deutschStep1Canvas, 1);
+	}
+
+	nextStep1Btn.addEventListener('click', () => nextStep(1));
+	nextStep2Btn.addEventListener('click', () => nextStep(2));
+	nextStep3Btn.addEventListener('click', () => nextStep(3));
+	nextStep4Btn.addEventListener('click', () => nextStep(4));
+	constantBtn.addEventListener('click', () => selectOracle('Constant'));
+	balancedBtn.addEventListener('click', () => selectOracle('Balanced'));
+	resetDeutschBtn.addEventListener('click', resetDeutsch);
+
+	// Initialize all visualizations
+	window.addEventListener('load', function() {
+		drawBlochSphere();
+		drawIonTrap();
+		drawLaserDemo();
+		drawQuantumCircuit();
+		drawDeutschStep(deutschStep1Canvas, 1);
+	});
+</script>
+</body>
+</html>
