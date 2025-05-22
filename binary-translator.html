@@ -178,7 +178,7 @@
     <main>
 		<p>Prior to discussing quantum computing, let's first cover how a classical computer (like the one you might be using right now!) performs calculations.</p>
 
-		<p>Before a computer can do math like we do, it must first convert <strong>decimal numbers</strong> to <strong>binary numbers</strong>. This is because a computer's hardware is made of <strong>transistors</strong>, which have two different states: on and off. The number '1' represents current flow within the computer, and the number '0' represents the absence of these signals. 
+		<p>Before a computer can do math like we do, it must first convert <strong>decimal numbers</strong> to <strong>binary numbers</strong>. This is because a computer's hardware is made of <strong>transistors</strong>, which have two different states: on and off. The number '1' represents electrical flow within the computer, and the number '0' represents the absence of these flows. In a computer, these 1s and 0s are known as "bits" (short for "binary digits") and are fundamental in processing numbers!</p>
 		
 		<p>By utilizing different combinations of 1s and 0s, the computer can represent each number in its own way! Try it out below by utilizing the following:</p>
 
@@ -186,7 +186,7 @@
 			<div class="card">
 				<div class="card-header">
 					<h1 class="card-title">Binary Translator</h1>
-					<p class="card-description">Convert between decimal and binary numbers</p>
+					<p class="card-description">Convert between whole and binary numbers</p>
 				</div>
 				<div class="card-content">
 					<div id="error-alert" class="alert hidden">
@@ -200,16 +200,16 @@
 		
 					<div class="input-group">
 						<div class="input-header">
-							<label for="decimal" class="label">Decimal Number</label>
+							<label for="decimal" class="label">Whole Number</label>
 						</div>
-						<input id="decimal" type="text" class="input" placeholder="Enter a decimal number">
+						<input id="decimal" type="text" class="input" placeholder="Enter a whole number">
 					</div>
 		
 					<div class="input-group">
 						<div class="input-header">
 							<label for="binary" class="label">Binary Number</label>
 						</div>
-						<input id="binary" type="text" class="input" placeholder="Enter a binary number">
+						<input id="binary" type="text" class="input" placeholder="And find its binary number!" readonly>
 					</div>
 				</div>
 			</div>
@@ -272,32 +272,6 @@
 				}
 			}
 	
-			// Convert binary to decimal
-			function binaryToDecimal() {
-				const binaryValue = binaryInput.value.trim();
-				
-				if (binaryValue === '') {
-					decimalInput.value = '';
-					hideError();
-					return;
-				}
-	
-				// Check if input contains only 0s and 1s
-				if (!/^[01]+$/.test(binaryValue)) {
-					showError('Binary numbers can only contain 0s and 1s');
-					return;
-				}
-	
-				try {
-					const decimalNum = parseInt(binaryValue, 2);
-					decimalInput.value = decimalNum.toString();
-					hideError();
-					checkIfReadyToProceed();
-				} catch (err) {
-					showError('Invalid binary number');
-				}
-			}
-	
 			function showError(message) {
 				errorMessage.textContent = message;
 				errorAlert.classList.remove('hidden');
@@ -325,7 +299,6 @@
 			}
 	
 			decimalInput.addEventListener('input', decimalToBinary);
-			binaryInput.addEventListener('input', binaryToDecimal);
 	
 			// Initialize
 			decimalToBinary();
