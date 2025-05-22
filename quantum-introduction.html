@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>elias.science</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:ital,wght@0,100..1000;1,100..1000&family=Cascadia+Code:ital,wght@0,200..700;1,200..700&display=swap" rel="stylesheet">
+
+<style>
+	body {
+		font-family: 'Cascadia Code', sans-serif;
+		line-height: 1.6;
+		color: #ffffff;
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 20px;
+		background-color: black;
+	}
+	h1 {
+		color: #487ceb;
+	}
+	header {
+		text-align: center;
+		border-bottom: 2px solid #616161;
+		padding-bottom: 20px;
+	}
+	.button-container {
+		display: flex;
+		justify-content: center;
+		margin-top: 3rem;
+		margin-bottom: 5rem;
+	}
+	.next-page {
+		padding: 1rem 1rem;
+		background-color: #f9fafb;
+		color: black;
+		text-decoration: none;
+		border-radius: 0.375rem;
+		font-weight: 500;
+		transition: background-color 0.2s;
+	}
+	:root {
+            --primary: #c4c4c4;
+            --primary-light: #fbfbfb;
+            --secondary: #10b981;
+            --dark: #111827;
+            --light: #f9fafb;
+            --gray: #4b5563;
+        }
+
+	.container {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 2rem;
+	}
+	
+	h2, h3 {
+		color: var(--light);
+		text-align: center;
+	}
+	
+	h1 {
+		font-size: 2.5rem;
+		margin-bottom: 0.5rem;
+	}
+	
+	.demo-container {
+		background-color: rgba(17, 24, 39, 0.8);
+		border-radius: 8px;
+		padding: 1.5rem;
+		margin: 2rem 0;
+		border: 1px solid var(--primary-light);
+	}
+	
+	canvas {
+		background-color: #1e293b;
+		border-radius: 8px;
+		display: block;
+		margin: 0 auto;
+		max-width: 100%;
+	}
+	
+	.controls {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin: 1rem 0;
+		justify-content: center;
+	}
+	
+	.slider-container {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin: 1rem 0;
+	}
+	
+	.slider-container label {
+		min-width: 100px;
+		color: var(--light);
+	}
+	
+	input[type="range"] {
+		flex: 1;
+	}
+	
+	.info-box {
+		background-color: rgba(79, 70, 229, 0.1);
+		border-left: 4px solid var(--primary);
+		padding: 1rem;
+		margin: 1rem 0;
+		border-radius: 0 4px 4px 0;
+	}
+	
+	@media (max-width: 768px) {
+		.container {
+			padding: 1rem;
+		}
+		
+		h1 {
+			font-size: 2rem;
+		}
+	}
+</style>
+</head>
+<body class="min-h-screen py-12">
+<header>
+	<div class="header-content"">
+		<h1>Let's talk about quantum computing!</h1>
+	</div>
+	<p>But first, an introduction to the <strong style="color: #9bb2e4;">qubit</strong>.</p>
+</header>
+
+<main class="container mx-auto px-4">
+	<section class="mb-16">
+		<div class="grid md:grid-cols-2 gap-12 items-center">
+		<div class="space-y-6">
+			<h1 class="text-4xl md:text-5xl font-bold tracking-tight text-white" style="display: flex; justify-content: center;">
+			What is a Qubit?
+			</h1>
+		</div>
+		<div class="relative h-[300px] md:h-[400px] rounded-xl overflow-hidden bg-gradient-to-br from-purple-900/40 to-blue-900/40 flex items-center justify-center">
+			<div class="relative w-48 h-48">
+			<div class="absolute inset-0 rounded-full border-4 border-purple-800" style="animation: spin 8s linear infinite;"></div>
+			<div class="absolute inset-0 rounded-full border-4 border-transparent border-t-purple-500" style="animation: spin 4s linear infinite;"></div>
+			<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full shadow-lg animate-pulse"></div>
+			<div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-500 rounded-full"></div>
+			<div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-purple-500 rounded-full"></div>
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<section class="mb-16">
+		<div class="max-w-3xl mx-auto space-y-6">
+		<p class="text-lg text-white">
+			A qubit (quantum bit) is the quantum equivalent of the classical bits we've just explored, but with a crucial difference: while a
+			classical bit can only be in one of two states (0 or 1), a qubit can exist in a superposition of both states simultaneously!
+		</p>
+
+		<p class="text-lg text-white mt-6">
+			When a qubit is measured (similar to the manner in which we "measured" the state of the cat earlier by opening the box), its superposition collapses to either state |0⟩ or |1⟩ (rather than simply 0 and 1). This measurement process is irreversible, which is another key difference from classical systems.
+		</p>
+		<p class="text-lg text-white mt-6">
+			Another important property of qubits is entanglement, where the state of one qubit becomes correlated with the state of another,
+			regardless of the distance separating them. Einstein famously called this "spooky action at a distance."
+		</p>
+		</div>
+
+	<div class="section">
+		<h2>Visualizing Qubits: The Bloch Sphere</h2>
+		<p>A qubit's state can be visualized as a point on a sphere called the Bloch sphere. The north pole represents |0⟩, the south pole represents |1⟩, and points on the equator represent equal superpositions.</p>
+		
+		<div class="demo-container">
+			<h3>Interactive Bloch Sphere</h3>
+			<canvas id="blochSphere" width="400" height="400"></canvas>
+			<div class="controls">
+				<div class="slider-container">
+					<label for="thetaSlider">Angle One (Vertical angle):</label>
+					<input type="range" id="thetaSlider" min="0" max="180" value="0" step="1">
+					<span id="thetaValue">0°</span>
+				</div>
+				<div class="slider-container">
+					<label for="phiSlider">Angle two (Horizontal angle):</label>
+					<input type="range" id="phiSlider" min="0" max="360" value="0" step="1">
+					<span id="phiValue">0°</span>
+				</div>
+			</div>
+			<div class="info-box">
+				<p>State: <span id="stateDisplay">|0⟩</span></p>
+				<p>Probability of measuring |0⟩: <span id="prob0">100%</span></p>
+				<p>Probability of measuring |1⟩: <span id="prob1">0%</span></p>
+			</div>
+		</div>
+	</div>
+
+	<div class="button-container">
+		<a href="quantum-functions.html" class="next-page">HOW IS THIS USEFUL?</a>
+	</div>
+
+	</section>
+</main>
+
+<script>
+	// Bloch Sphere Visualization
+	const blochCanvas = document.getElementById('blochSphere');
+	const blochCtx = blochCanvas.getContext('2d');
+	const thetaSlider = document.getElementById('thetaSlider');
+	const phiSlider = document.getElementById('phiSlider');
+	const thetaValue = document.getElementById('thetaValue');
+	const phiValue = document.getElementById('phiValue');
+	const stateDisplay = document.getElementById('stateDisplay');
+	const prob0 = document.getElementById('prob0');
+	const prob1 = document.getElementById('prob1');
+
+	let theta = 0; // 0 to π (0 to 180 degrees)
+	let phi = 0;   // 0 to 2π (0 to 360 degrees)
+
+	function drawBlochSphere() {
+		const width = blochCanvas.width;
+		const height = blochCanvas.height;
+		const centerX = width / 2;
+		const centerY = height / 2;
+		const radius = Math.min(width, height) / 2.5;
+		
+		// Clear canvas
+		blochCtx.clearRect(0, 0, width, height);
+		
+		// Draw sphere
+		blochCtx.beginPath();
+		blochCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+		blochCtx.strokeStyle = '#8b5cf6';
+		blochCtx.lineWidth = 1;
+		blochCtx.stroke();
+		
+		// Draw axes
+		blochCtx.beginPath();
+		// Z-axis
+		blochCtx.moveTo(centerX, centerY + radius);
+		blochCtx.lineTo(centerX, centerY - radius);
+		// X-axis
+		blochCtx.moveTo(centerX - radius, centerY);
+		blochCtx.lineTo(centerX + radius, centerY);
+		// Y-axis (appears as an ellipse in 2D projection)
+		blochCtx.moveTo(centerX, centerY);
+		blochCtx.ellipse(centerX, centerY, radius, radius / 4, 0, 0, 2 * Math.PI);
+		
+		blochCtx.strokeStyle = '#4b5563';
+		blochCtx.stroke();
+		
+		// Label axes
+		blochCtx.fillStyle = '#f9fafb';
+		blochCtx.font = '14px Arial';
+		blochCtx.fillText('Z', centerX + 5, centerY - radius - 10);
+		blochCtx.fillText('X', centerX + radius + 10, centerY);
+		blochCtx.fillText('Y', centerX - 20, centerY - radius / 4 - 10);
+		
+		// Label |0⟩ and |1⟩
+		blochCtx.fillText('|0⟩', centerX - 15, centerY - radius - 10);
+		blochCtx.fillText('|1⟩', centerX - 15, centerY + radius + 20);
+		
+		// Convert spherical to Cartesian coordinates
+		const thetaRad = theta * Math.PI / 180;
+		const phiRad = phi * Math.PI / 180;
+		
+		const x = radius * Math.sin(thetaRad) * Math.cos(phiRad);
+		const y = radius * Math.sin(thetaRad) * Math.sin(phiRad);
+		const z = radius * Math.cos(thetaRad);
+		
+		// Draw state vector
+		blochCtx.beginPath();
+		blochCtx.moveTo(centerX, centerY);
+		blochCtx.lineTo(centerX + x, centerY - z);
+		blochCtx.strokeStyle = '#10b981';
+		blochCtx.lineWidth = 2;
+		blochCtx.stroke();
+		
+		// Draw point at the end of the vector
+		blochCtx.beginPath();
+		blochCtx.arc(centerX + x, centerY - z, 5, 0, 2 * Math.PI);
+		blochCtx.fillStyle = '#10b981';
+		blochCtx.fill();
+		
+		// Update state display
+		updateStateDisplay();
+	}
+
+	function updateStateDisplay() {
+		const thetaRad = theta * Math.PI / 180;
+		
+		// Calculate probabilities
+		const prob0Value = Math.cos(thetaRad / 2) ** 2;
+		const prob1Value = Math.sin(thetaRad / 2) ** 2;
+		
+		// Update display
+		if (theta < 1) {
+			stateDisplay.textContent = '|0⟩';
+		} else if (Math.abs(theta - 180) < 1) {
+			stateDisplay.textContent = '|1⟩';
+		} else if (Math.abs(theta - 90) < 1 && Math.abs(phi) < 1) {
+			stateDisplay.textContent = '|+⟩ = (|0⟩ + |1⟩)/√2';
+		} else if (Math.abs(theta - 90) < 1 && Math.abs(phi - 180) < 1) {
+			stateDisplay.textContent = '|-⟩ = (|0⟩ - |1⟩)/√2';
+		} else {
+			stateDisplay.textContent = `cos(${theta/2}°)|0⟩ + e^(i${phi}°)sin(${theta/2}°)|1⟩`;
+		}
+		
+		prob0.textContent = `${(prob0Value * 100).toFixed(1)}%`;
+		prob1.textContent = `${(prob1Value * 100).toFixed(1)}%`;
+	}
+
+	thetaSlider.addEventListener('input', function() {
+		theta = parseInt(this.value);
+		thetaValue.textContent = `${theta}°`;
+		drawBlochSphere();
+	});
+
+	phiSlider.addEventListener('input', function() {
+		phi = parseInt(this.value);
+		phiValue.textContent = `${phi}°`;
+		drawBlochSphere();
+	});
+
+	// Initialize the Bloch sphere visualization
+	window.addEventListener('load', function() {
+		drawBlochSphere();
+	});
+</script>
+</body>
