@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>elias.science</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:ital,wght@0,100..1000;1,100..1000&family=Cascadia+Code:ital,wght@0,200..700;1,200..700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Cascadia Code', sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+			color: white;
+            background-color: black;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+        }
+        h1 {
+			display: flex;
+            color: #487ceb;
+			justify-content: center;
+        }
+        :root {
+            --primary: #6d28d9;
+            --primary-light: #8b5cf6;
+            --secondary: #10b981;
+            --dark: #111827;
+            --light: #f9fafb;
+            --gray: #4b5563;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }       
+        
+        .demo-container {
+            background-color: rgba(17, 24, 39, 0.8);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid var(--primary-light);
+        }
+        
+        canvas {
+            background-color: #1e293b;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+            justify-content: center;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--primary-light);
+        }
+        
+        button:disabled {
+            background-color: var(--gray);
+            cursor: not-allowed;
+        }
+        
+        .gate-btn {
+            background-color: var(--secondary);
+        }
+        
+        .gate-btn:hover {
+            background-color: #34d399;
+        }
+        
+        .info-box {
+            background-color: rgba(79, 70, 229, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+		.flex-container {
+            display: flex;
+			justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+		.section {
+            background-color: rgba(30, 41, 59, 0.8);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+		.gate-table {
+			width: 100%;
+			border-collapse: collapse;
+			background-color: rgba(17, 24, 39, 0.8);
+			color: white;
+			border: 1px solid var(--primary-light);
+			border-radius: 8px;
+			overflow: hidden;
+		}
+
+		.gate-table th, .gate-table td {
+			padding: 0.75rem;
+			text-align: left;
+			border-bottom: 1px solid #374151;
+		}
+
+		.gate-table th {
+			background-color: var(--primary);
+			color: white;
+		}
+
+		.gate-table tr:last-child td {
+			border-bottom: none;
+		}
+		.next-page {
+		display: flex;
+		justify-content: center;
+		padding: 1rem 1rem;
+		background-color: #f9fafb;
+		color: black;
+		text-decoration: none;
+		border-radius: 0.375rem;
+		font-weight: 500;
+		transition: background-color 0.2s;
+		}
+
+		.button-container {
+		display: flex;
+		justify-content: center;
+		margin-top: 3rem;
+		margin-bottom: 5rem;
+		}
+    </style>
+</head>
+<body>
+    <header>
+		<h1>Now it's your turn!</h1>
+    </header>
+    <main>
+		<div class="introduction">
+			<div class="introduction">
+				<p>You've learned the basics of how quantum computers function through interactive demonstrations! Now, it's time to apply what you've learnt to <strong>build your own circuit</strong>!</p>
+			
+				<p>Using the interactive demonstration below, add qubits/gates, and perform measurements to produce different output strings! This will allow you to see how a quantum computing researcher might build a circuit in real life!</p>
+			</div>
+		</div>
+
+		<div class="section">
+            
+            <div class="demo-container">
+                <h2 style="display: flex; justify-content: center;">Build Your Quantum Circuit</h2>
+                <canvas id="quantumCircuit" width="600" height="300"></canvas>
+                <div class="controls">
+                    <button id="addQubitBtn">Add Qubit</button>
+                    <button id="resetCircuitBtn">Reset Circuit</button>
+                    <button id="runCircuitBtn">Run Circuit</button>
+                </div>
+                <div class="controls">
+                    <button id="addXGateBtn" class="gate-btn">Add X Gate</button>
+                    <button id="addHGateBtn" class="gate-btn">Add H Gate</button>
+                    <button id="addCNOTBtn" class="gate-btn">Add CNOT Gate</button>
+                    <button id="addMeasureBtn">Add Measurement</button>
+                </div>
+                <div class="info-box">
+                    <p>Circuit status: <span id="circuitStatus">Ready</span></p>
+                    <p>Results: <span id="circuitResults">None</span></p>
+					<p>Instructions: First select a qubit by clicking on its label, then add gates to it.</p>
+                </div>
+            </div>
+        </div>
+
+		<div class="section">
+			<h2>Refresher: Quantum Gates</h2>
+			<div class="flex-container">
+				<table class="gate-table">
+					<thead>
+						<tr>
+							<th>Gate</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>X Gate</td>
+							<td>Flips the state of a qubit (|0⟩ ↔ |1⟩)</td>
+						</tr>
+						<tr>
+							<td>H Gate</td>
+							<td>Creates superposition</td>
+						</tr>
+						<tr>
+							<td>CNOT Gate</td>
+							<td>Entangles two qubits</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+    </main>
+
+	<div class="button-container">
+		<a href="conclusion.html" class="next-page">NEXT</a>
+	</div>
+
+	<script>
+        // Quantum Circuit
+        const circuitCanvas = document.getElementById('quantumCircuit');
+        const circuitCtx = circuitCanvas.getContext('2d');
+        const addQubitBtn = document.getElementById('addQubitBtn');
+        const resetCircuitBtn = document.getElementById('resetCircuitBtn');
+        const runCircuitBtn = document.getElementById('runCircuitBtn');
+        const addXGateBtn = document.getElementById('addXGateBtn');
+        const addHGateBtn = document.getElementById('addHGateBtn');
+        const addCNOTBtn = document.getElementById('addCNOTBtn');
+        const addMeasureBtn = document.getElementById('addMeasureBtn');
+        const circuitStatusDisplay = document.getElementById('circuitStatus');
+        const circuitResultsDisplay = document.getElementById('circuitResults');
+
+        let circuit = {
+            qubits: [],
+            gates: [],
+            selectedQubit: -1,
+            selectedGateType: '',
+            results: []
+        };
+
+        function drawQuantumCircuit() {
+            const width = circuitCanvas.width;
+            const height = circuitCanvas.height;
+            const margin = 50;
+            const qubitSpacing = 50;
+            const gateSpacing = 60;
+            
+            // Clear canvas
+            circuitCtx.clearRect(0, 0, width, height);
+            
+            // Draw circuit background
+            circuitCtx.fillStyle = '#1e293b';
+            circuitCtx.fillRect(0, 0, width, height);
+            
+            // Draw qubits and wires
+            circuit.qubits.forEach((qubit, index) => {
+                const y = margin + index * qubitSpacing;
+                
+                // Draw qubit label
+                circuitCtx.fillStyle = '#f9fafb';
+                circuitCtx.font = '14px Arial';
+                circuitCtx.fillText(`q${index}: |0⟩`, 10, y + 5);
+                
+                // Draw wire
+                circuitCtx.beginPath();
+                circuitCtx.moveTo(margin, y);
+                circuitCtx.lineTo(width - margin, y);
+                circuitCtx.strokeStyle = '#4b5563';
+                circuitCtx.lineWidth = 1;
+                circuitCtx.stroke();
+                
+                // Highlight selected qubit
+                if (index === circuit.selectedQubit) {
+                    circuitCtx.strokeStyle = '#10b981';
+                    circuitCtx.lineWidth = 2;
+                    circuitCtx.strokeRect(5, y - 15, 40, 25);
+                }
+            });
+            
+            // Draw gates
+            circuit.gates.forEach(gate => {
+                const x = margin + gate.position * gateSpacing;
+                const y = margin + gate.qubit * qubitSpacing;
+                
+                // Draw gate box
+                circuitCtx.fillStyle = getGateColor(gate.type);
+                circuitCtx.fillRect(x - 15, y - 15, 30, 30);
+                
+                // Draw gate label
+                circuitCtx.fillStyle = '#f9fafb';
+                circuitCtx.font = '14px Arial';
+                circuitCtx.fillText(gate.type, x - 8, y + 5);
+                
+                // Draw CNOT control line if applicable
+                if (gate.type === 'CNOT' && gate.control !== undefined) {
+                    const controlY = margin + gate.control * qubitSpacing;
+                    
+                    circuitCtx.beginPath();
+                    circuitCtx.moveTo(x, controlY);
+                    circuitCtx.lineTo(x, y);
+                    circuitCtx.strokeStyle = '#f59e0b';
+                    circuitCtx.lineWidth = 2;
+                    circuitCtx.stroke();
+                    
+                    // Draw control point
+                    circuitCtx.beginPath();
+                    circuitCtx.arc(x, controlY, 5, 0, 2 * Math.PI);
+                    circuitCtx.fillStyle = '#f59e0b';
+                    circuitCtx.fill();
+                }
+            });
+            
+            // Draw measurement results
+            if (circuit.results.length > 0) {
+                circuit.results.forEach((result, index) => {
+                    const y = margin + index * qubitSpacing;
+                    
+                    circuitCtx.fillStyle = '#f9fafb';
+                    circuitCtx.font = '14px Arial';
+                    circuitCtx.fillText(`→ |${result}⟩`, width - margin + 10, y + 5);
+                });
+            }
+        }
+
+        function getGateColor(gateType) {
+            switch (gateType) {
+                case 'X': return '#ef4444';
+                case 'H': return '#8b5cf6';
+                case 'CNOT': return '#f59e0b';
+                case 'M': return '#10b981';
+                default: return '#4b5563';
+            }
+        }
+
+        function addQubit() {
+            if (circuit.qubits.length < 5) {
+                circuit.qubits.push({ state: '0' });
+                drawQuantumCircuit();
+            }
+        }
+
+        function resetCircuit() {
+            circuit = {
+                qubits: [],
+                gates: [],
+                selectedQubit: -1,
+                selectedGateType: '',
+                results: []
+            };
+            circuitStatusDisplay.textContent = 'Ready';
+            circuitResultsDisplay.textContent = 'None';
+            drawQuantumCircuit();
+        }
+
+        function selectQubit(event) {
+            const rect = circuitCanvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            
+            const margin = 50;
+            const qubitSpacing = 50;
+            
+            // Check if click is in qubit label area
+            if (x < margin) {
+                const qubitIndex = Math.floor((y - margin / 2) / qubitSpacing);
+                if (qubitIndex >= 0 && qubitIndex < circuit.qubits.length) {
+                    circuit.selectedQubit = qubitIndex;
+                    drawQuantumCircuit();
+                }
+            }
+        }
+
+        function addGate(gateType) {
+            if (circuit.selectedQubit === -1) {
+                alert('Please select a qubit first');
+                return;
+            }
+            
+            // Find the next available position
+            let maxPosition = 0;
+            circuit.gates.forEach(gate => {
+                if (gate.qubit === circuit.selectedQubit && gate.position > maxPosition) {
+                    maxPosition = gate.position;
+                }
+            });
+            
+            // Add the gate
+            if (gateType === 'CNOT' && circuit.qubits.length < 2) {
+                alert('CNOT gate requires at least 2 qubits');
+                return;
+            }
+            
+            const newGate = {
+                type: gateType,
+                qubit: circuit.selectedQubit,
+                position: maxPosition + 1
+            };
+            
+            // For CNOT, add control qubit
+            if (gateType === 'CNOT') {
+                // Find a different qubit to use as control
+                const controlQubit = circuit.selectedQubit === 0 ? 1 : 0;
+                newGate.control = controlQubit;
+            }
+            
+            circuit.gates.push(newGate);
+            drawQuantumCircuit();
+        }
+
+        function runCircuit() {
+            // Simple simulation of quantum circuit
+            // Initialize all qubits to |0⟩
+            const qubitStates = circuit.qubits.map(() => '0');
+            
+            // Sort gates by position to execute in order
+            const sortedGates = [...circuit.gates].sort((a, b) => a.position - b.position);
+            
+            // Execute gates
+            sortedGates.forEach(gate => {
+                if (gate.type === 'X') {
+                    // X gate flips the state
+                    qubitStates[gate.qubit] = qubitStates[gate.qubit] === '0' ? '1' : '0';
+                } else if (gate.type === 'H') {
+                    // H gate creates superposition
+                    qubitStates[gate.qubit] = qubitStates[gate.qubit] === '0' ? '+' : '-';
+                } else if (gate.type === 'CNOT') {
+                    // CNOT flips target if control is |1⟩
+                    if (qubitStates[gate.control] === '1') {
+                        qubitStates[gate.qubit] = qubitStates[gate.qubit] === '0' ? '1' : '0';
+                    }
+                } else if (gate.type === 'M') {
+                    // Measurement collapses superposition
+                    if (qubitStates[gate.qubit] === '+' || qubitStates[gate.qubit] === '-') {
+                        qubitStates[gate.qubit] = Math.random() < 0.5 ? '0' : '1';
+                    }
+                }
+            });
+            
+            // Update results
+            circuit.results = [...qubitStates];
+            circuitStatusDisplay.textContent = 'Executed';
+            
+            // Format the result as a quantum state
+            if (circuit.results.length > 0) {
+                circuitResultsDisplay.textContent = `|${qubitStates.join('')}⟩`;
+            } else {
+                circuitResultsDisplay.textContent = 'No qubits to measure';
+            }
+            
+            drawQuantumCircuit();
+        }
+
+        // Add event listeners
+        circuitCanvas.addEventListener('click', selectQubit);
+        addQubitBtn.addEventListener('click', addQubit);
+        resetCircuitBtn.addEventListener('click', resetCircuit);
+        runCircuitBtn.addEventListener('click', runCircuit);
+        addXGateBtn.addEventListener('click', () => addGate('X'));
+        addHGateBtn.addEventListener('click', () => addGate('H'));
+        addCNOTBtn.addEventListener('click', () => addGate('CNOT'));
+        addMeasureBtn.addEventListener('click', () => addGate('M'));
+
+        // Initialize the circuit
+        window.addEventListener('load', function() {
+            drawQuantumCircuit();
+        });
+    </script>
+</body>
+</html>
